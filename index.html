@@ -6,7 +6,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta confirm="partners-house-175941"/>
-
+<script> 
+if (typeof window._phv2Activator === "undefined") {
+document.addEventListener('phv2site.ready', (e) => {
+window._phv2Activator.activate('native_web_push');
+});
+} else {
+window._phv2Activator.activate('native_web_push');
+}
+</script>
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<title id="title">Who do you want</title>
 	<style>
