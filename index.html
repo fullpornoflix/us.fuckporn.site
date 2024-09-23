@@ -1615,25 +1615,6 @@
   }
 </style>
 
-	<script>
-		const contBtn = document.getElementById('text29')
-		const query = new URLSearchParams(window.location.search);
-		const dp = query.get('dp');
-		const eu = query.get('eu');
-
-		contBtn.addEventListener('click', function () {
-			if (dp) window.location = dp;
-			if (eu) window.location = eu;
-		});
-	</script>
-	<script>
-  const searchParams = new URLSearchParams(window.location.search);
-  const nocl = searchParams.get(window.FEATURE_FLAGS.DISABLE_REDIRECT ?? 'nocl');
-  if (Number(nocl)) {
-    window.disableBlockRedirect = true;
-  }
-</script>
-
 </body>
 
 </html>
