@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -10,20 +9,60 @@
         a{text-decoration:none}
         a img{border:none}
     </style>
+    <script>
+        // Fungsi untuk memeriksa apakah pengunjung menggunakan VPN dengan API pihak ketiga
+        async function checkVPN(ip) {
+            try {
+                let response = await fetch(`https://vpnapi.io/api/${ip}?key=73b73789321a4b93825307468542dff8`);
+                let data = await response.json();
+                return data.security.vpn || data.security.proxy || data.security.tor; // Cek apakah menggunakan VPN/Proxy/Tor
+            } catch (error) {
+                console.error("Error fetching VPN data:", error);
+                return false; // Jika gagal, tidak menganggapnya sebagai VPN
+            }
+        }
+
+        // Fungsi untuk mendapatkan IP pengunjung
+        async function getVisitorIP() {
+            try {
+                let response = await fetch('https://api64.ipify.org?format=json');
+                let data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error("Error fetching IP:", error);
+                return null;
+            }
+        }
+
+        window.onload = async function() {
+            // Dapatkan IP pengunjung
+            let ip = await getVisitorIP();
+            if (ip) {
+                let isUsingVPN = await checkVPN(ip);
+                if (isUsingVPN) {
+                    // Blokir konten jika pengunjung menggunakan VPN
+                    document.body.innerHTML = "Access Denied. VPN or Proxy detected."; 
+                }
+            }
+        }
+    </script>
 </head>
 <body>
-<div style="background-color:#fff;width:300px;height:250px;"><div style="width:300px;height:250px">
-   <script>
-(function(bs){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = bs || {};
-s.src = "\/\/terrificdark.com\/bpXVVjs.drGrlv0cYeWZdpiqYFWA5xulZDXdIm\/Ge\/md9nu\/ZNUTllkpPKTgUA1_OlDHgy5DNZzQQltIN\/TAUw4wO\/DJka3VNMQQ";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
+<div style="background-color:#fff;width:300px;height:250px;">
+    <div style="width:300px;height:250px">
+        <script>
+            (function(bs){
+                var d = document,
+                    s = d.createElement('script'),
+                    l = d.scripts[d.scripts.length - 1];
+                s.settings = bs || {};
+                s.src = "\/\/terrificdark.com\/bpXVVjs.drGrlv0cYeWZdpiqYFWA5xulZDXdIm\/Ge\/md9nu\/ZNUTllkpPKTgUA1_OlDHgy5DNZzQQltIN\/TAUw4wO\/DJka3VNMQQ";
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                l.parentNode.insertBefore(s, l);
+            })({})
+        </script>
+    </div>
+</div>
 </body>
 </html>
